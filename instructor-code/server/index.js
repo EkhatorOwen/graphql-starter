@@ -1,9 +1,9 @@
 const express = require('express');
 const { json } = require('body-parser');
 const cors = require('cors');
-const  graphqlHTTP = require('express-graphql')
+const graphqlHTTP = require('express-graphql');
 
-const { schema, root } = require('./graphql/schema')
+const { schema, root } = require('./graphql/schema');
 
 const port = 3001;
 
