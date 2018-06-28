@@ -11,7 +11,7 @@ export const DELETE_PERSON = gql`
 `;
 
 
-const DeletePersonMutation = () => {
+const DeletePersonMutation = (props) => {
   return (
     <Mutation mutation={ DELETE_PERSON }
      update={(cache,{ data: { deletePerson } })=>{
@@ -21,6 +21,10 @@ const DeletePersonMutation = () => {
              query: GET_PEOPLE,
              data: { people: updated }
          })
-     }}></Mutation>
+     }}>
+        {(deletePerson,{ loading,err })=>(<div>{props.children(loading,err,deletePerson)}</div>)}
+     </Mutation>
   )
 }
+
+export default DeletePersonMutation;

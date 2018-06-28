@@ -1,4 +1,5 @@
 import React from 'react';
+import DeletePersonMutation from './mutations/DeletePersonMutation';
 
 const cardStyle = {
   height: '300px',
@@ -23,7 +24,21 @@ const Card = props => (
     <p>{props.homeworld.name}</p>
     <h2># of Appearances</h2>
     <p>{props.films.length}</p>
-    {/* MUTATION COMPONENT */}
+    <DeletePersonMutation>
+      {(loading, err, deletePerson) => {
+        return (
+          <div>
+            <button
+              onClick={() => deletePerson({ variables: { id: props.id } })}
+            >
+              Delete
+            </button>
+            {loading && <p>Loading....</p>}
+            {err && <p>Error :(</p>}
+          </div>
+        );
+      }}
+    </DeletePersonMutation>
   </div>
 );
 

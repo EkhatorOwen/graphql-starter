@@ -1,4 +1,4 @@
-const axois = require('axios')
+const axios = require('axios')
 
 const { buildSchema } = require('graphql')
 
@@ -9,7 +9,7 @@ function getFilms(url){
 }
 
 class Person {
-    constructor({ id, name, height, films, homeworld }){
+    constructor({ id, name, height, films, homeworld }, req){
         this.id = id;
         this.name = name;
         this.height = height;
@@ -18,7 +18,7 @@ class Person {
     }
 
     getFilms(films){
-        return filems[0] ? films.map(getFilms): []
+        return films[0] ? films.map(getFilms): []
     }
     
     getHomeworld(homeworld){
@@ -75,7 +75,7 @@ const schema = buildSchema(
 const root = {
     people(_,req){  /////people resolver
         //const users = req.app.get()
-        return users.map(user=>new Person(user))
+        return users.map(user=>new Person(user, req))
     },
     person({ id },req){
         const selected = users.filter(val=>val.id===id)[0]

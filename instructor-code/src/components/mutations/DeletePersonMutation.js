@@ -10,16 +10,25 @@ export const DELETE_PERSON = gql`
   }
 `;
 
-const DeletePersonMutation = props => (
-  <Mutation
-    mutation={DELETE_PERSON}
-    update={(cache, { data: { deletePerson } }) => {
-      let { people } = cache.readQuery({ query: GET_PEOPLE });
-      const updated = people.filter(val => val.id !== deletePerson);
-      cache.writeQuery({
-        query: GET_PEOPLE,
-        data: { people: updated }
-      });
-    }}
-  />
-);
+const DeletePersonMutation = props => {
+  console.log(DELETE_PERSON);
+  return (
+    <Mutation
+      mutation={DELETE_PERSON}
+      update={(cache, { data: { deletePerson } }) => {
+        let { people } = cache.readQuery({ query: GET_PEOPLE });
+        const updated = people.filter(val => val.id !== deletePerson);
+        cache.writeQuery({
+          query: GET_PEOPLE,
+          data: { people: updated }
+        });
+      }}
+    >
+      {(deletePerson, { loading, err }) => (
+        <div>{props.children(loading, err, deletePerson)}</div>
+      )}
+    </Mutation>
+  );
+};
+
+export default DeletePersonMutation;

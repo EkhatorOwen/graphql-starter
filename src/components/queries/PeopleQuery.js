@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { gql } from 'appolo-boost';
+import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo'
 
 
